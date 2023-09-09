@@ -11,8 +11,8 @@ import java.util.List;
 public class PostService {
 
     private final RestClient restClient;
-    private static final String URL_ID = "/posts/{id}";
-    private static final String URL = "/posts";
+    private static final String URI_ID = "/posts/{id}";
+    private static final String URI = "/posts";
     private static final String BASE = "https://jsonplaceholder.typicode.com";
 
     public PostService() {
@@ -23,7 +23,7 @@ public class PostService {
 
     List<Post> findAll() {
         return restClient.get()
-                .uri(URL)
+                .uri(URI)
                 .retrieve()
                 .body(new ParameterizedTypeReference<List<Post>>() {
                 });
@@ -31,14 +31,14 @@ public class PostService {
 
     Post findById(int id) {
         return restClient.get()
-                .uri(URL_ID, id)
+                .uri(URI_ID, id)
                 .retrieve()
                 .body(Post.class);
     }
 
     Post create(Post post) {
         return restClient.post()
-                .uri(URL)
+                .uri(URI)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(post)
                 .retrieve()
@@ -47,7 +47,7 @@ public class PostService {
 
     Post update(Integer id, Post post) {
         return restClient.put()
-                .uri(URL_ID, id)
+                .uri(URI_ID, id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(post)
                 .retrieve()
@@ -56,7 +56,7 @@ public class PostService {
 
     void delete(Integer id) {
         restClient.delete()
-                .uri(URL_ID, id)
+                .uri(URI_ID, id)
                 .retrieve()
                 .toBodilessEntity();
     }
